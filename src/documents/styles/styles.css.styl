@@ -1,0 +1,188 @@
+// Coded in Stylus: http://learnboost.github.com/stylus/
+
+// ====================================
+// Imports
+
+// Reset
+@import 'reset.css'
+
+// nib: http://visionmedia.github.com/nib/
+@import 'nib'
+
+
+// ====================================
+// Responsive Layout Awesomeness
+// https://gist.github.com/1549029
+// Published under the "public domain" using the Creative Commons Zero - http://creativecommons.org/publicdomain/zero/1.0/
+
+// Everything
+*
+	// Make paddings be included within the width
+	box-sizing border-box
+
+// Provide our wrapper mixin
+// Contains our resize transition
+wrapper($site-width = 70%)
+	$site-margin = ((100% - $site-width) / 2)
+	margin-left: $site-margin
+	margin-right: $site-margin
+	transition: margin 0.3s ease-out
+
+// Provide our column mixin
+column()
+	display: inline
+	float: left
+	overflow: hidden
+
+
+// ====================================
+// Configuration
+
+// Colors
+// ...
+
+// Actions
+actionSize = 30px // 24px
+actionIconSize = 16px // 14px
+
+
+// ====================================
+// Mixins
+
+textLink()
+	cursor: pointer
+	&:hover
+		text-decoration: underline
+actionsContainer()
+	&:hover
+		.actions
+			display: block
+
+
+// ====================================
+// Styles
+
+// ------------------------------------
+// Positioning
+
+body
+	font-family: "Myriad Pro"
+	cursor: default
+
+.listbar, .filebar
+	width: 300px
+	position: absolute
+	top: 0
+	border-left: 1px solid black
+
+.listbar
+	right: 0
+
+.filebar
+	right: 300px
+
+// ------------------------------------
+// Styling
+
+.barheader
+	background: black
+	color: white
+	height: 2em
+	font-size: 24px
+	overflow: hidden
+	text-wrap: none
+	white-space: nowrap
+	padding: 0.5em 15px
+	position: relative
+	actionsContainer()
+
+.barsubheader, .filegroup
+	color: #666
+	background: #F5F5F5
+	border-top: 1px solid #BBB
+	border-bottom: 1px solid #BBB
+
+.filegroup
+	.dirname
+		&:after
+			content: '/'
+
+.fileitem
+	border-top: 1px solid #DDD
+	border-bottom: 1px solid #DDD
+	padding: 1em 15px
+	position: relative
+	actionsContainer()
+
+	.title
+		font-size: 15px
+		color: black
+		font-weight: bold
+	.description
+		font-size: 14px
+		color: #666
+
+	.actions
+		top: 1em
+		right: 15px
+
+.actions
+	display: none
+	position: absolute
+	top: 0
+	right: 0
+	.action
+		cursor: pointer
+		&.new,
+		&.maximize,
+		&.minimize,
+		&.close,
+		&.delete,
+		&.edit,
+		&.download
+			font-family: 'docpad'
+			font-size: actionIconSize
+			color: white
+			width: actionSize
+			height: actionSize
+			padding-top: (actionSize - actionIconSize) * 0.5px
+			text-align: center
+			border-radius: actionSize * 0.5px
+			margin-left: actionSize * 0.1px
+			background: #999
+			overflow: hidden
+			display: inline-block
+		&.new:before
+			content: '\2B'
+		&.minimize:before
+			content: '\1F517'
+		&.maximize:before
+			content: '\1F517'
+		&.close:before
+			content: 'X'
+		&.edit:before
+			content: '\270E'
+		&.download:before
+			content: '\1F4E5'
+		&.delete
+			background: #D76155
+			&:before
+				content: '\E729'
+		&:hover
+			background: #666
+&:hover
+	.actions
+		display: block
+
+
+.filebar
+	.meta, .body
+		width: 100%
+		background: transparent
+		border: none
+		outline: none
+		padding: 1em
+	.meta
+		height: 5em
+	.body
+		height: 20em
